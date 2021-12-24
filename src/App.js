@@ -4,6 +4,7 @@ import './App.css'
 import EmployeePage from './components/EmployeePage'
 import HomePage from './components/HomePage'
 
+
 class App extends Component {
   constructor(){
     super()
@@ -52,6 +53,7 @@ class App extends Component {
       searchedText
     },()=>{console.log(this.state.searchedText)} )
   }
+
   render() {
     const filtredEmployees = this.state.employees.filter((employee)=>(
       employee.name.includes(this.state.searchedText) ||
@@ -71,6 +73,9 @@ class App extends Component {
             employee={this.state.employees.find((employee)=>  (employee.id === this.state.clickedEmployee ))} 
             clickedItem={this.clickedItem}
           />
+          
+          
+          
         </div>
     )
   }
