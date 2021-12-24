@@ -1,21 +1,40 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { getEmployees } from '../js/actions/employeesActions';
+import LoadingSpinner from './HOC/LoadingSpinner';
+import { Card } from 'react-bootstrap';
 import EmployeeList from './EmployeeList'
 import Header from './Header'
-import SearchBar from './SearchBar';
 
-function HomePage(props) {
-    const {employees,clickedItem} = props;
-    return (
-        <div style={{margin : '10px'}}>
-            <Header parent={'HomePage'} />
-            <SearchBar handleSearch={props.handleSearch} />
-            <EmployeeList 
-                employees={employees}  
-                clickedItem={clickedItem} 
-                clickedEmployee={props.clickedEmployee}  
-            />
-        </div>
-    )
+//get the returned component from LoadingSpinner
+const EmployeeListWithLoading = LoadingSpinner(EmployeeList) 
+
+
+export class HomePage extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            isLoading : true
+        }
+    }
+
+    componentDidMount(){
+        this.props.getEmployees()
+        setTimeout(()=> this.setState({
+            ...this.state,
+            isLoading : false
+        }), 3000);
+      }
+    
+
+    render() {
+        return (
+            <Card>
+                <Header parent={'HomePage'} />
+                <EmployeeListWithLoading isLoading={this.state.isLoading}  handleSearch={this.props.handleSearch}  />
+            </Card>
+        )
+    }
 }
 
-export default HomePage
+export default connect(null,{getEmployees})(HomePage)

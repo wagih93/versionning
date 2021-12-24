@@ -1,24 +1,31 @@
 import React from 'react'
-import EmployeeItem from './EmployeeItem'
 
-function EmployeeList({employees,clickedEmployee,clickedItem}) {
-    //const activeItem = () => (clickedEmployee ? active : null)
+import { ListGroup } from 'react-bootstrap'
+import { connect } from 'react-redux'
+
+import EmployeeItem from './EmployeeItem'
+import SearchBar from './SearchBar'
+
+function EmployeeList({employees,handleSearch}) {
+   
     return (
-        <div>
-            {employees.map((employee)=>( 
-                <div
-                active={employee.id === clickedEmployee}
-                > 
-                    <EmployeeItem 
-                        key={employee.id} 
-                        employee={employee} 
-                        clickedItem={clickedItem}  
-                        clickedEmployee={clickedEmployee} 
-                    />
-                </div> 
-            ))}
+        <div id="homeContentent">
+            <SearchBar handleSearch={handleSearch}  />
+            <ListGroup>
+                {employees.map((employee)=>( 
+                        <EmployeeItem 
+                            key={employee.id} 
+                            employee={employee} 
+                        />
+                ))}
+            </ListGroup>
         </div>
+        
     )
 }
 
-export default EmployeeList
+const mapStateToProps = (state) => ({
+    employees : state.employees.employeeList
+})
+
+export default connect(mapStateToProps)(EmployeeList)
