@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { FormControl, InputGroup } from 'react-bootstrap'
 
 class SearchBar extends Component {
     constructor(props){
@@ -18,14 +19,13 @@ class SearchBar extends Component {
 
     render() {
         return (
-            <form id="searchInputContainer">
-                <input
-                    typr='text'
+            <InputGroup id="searchInputContainer">
+                <FormControl
                     placeholder="Search key words"  
                     id="searchInput" 
                     value={this.state.searchText}
                     onChange={(event)=>{this.handleInput(event)}} />
-            </form>
+            </InputGroup>
         )
     }
 }

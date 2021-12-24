@@ -1,19 +1,26 @@
 import React from 'react'
+import { Card } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import AddEmployee from './AddEmployee'
 
 
 function Header(props) {
     return (
-        <div id="headerContainer">
+        <Card.Header id="headerContainer">
             { props.parent==='HomePage' ? 
-                <div className='headerTitle'>Employee Directory</div> 
+                <>
+                    <div className='headerTitle'>Employee Directory</div> 
+                    <AddEmployee />
+                </>
+                
                 : 
                 <> 
-                    <div className="backBtn" onClick={()=>{props.clickedItem(null)}} > &laquo; </div>
+                    <Link className="backBtn stylelessLink" to={'/'}> &laquo; </Link>
                     <div className='headerTitle'>Emplopyee</div> 
                 </>
             }
                 
-        </div>
+        </Card.Header>
     )
 }
 
